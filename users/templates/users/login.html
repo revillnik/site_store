@@ -18,7 +18,12 @@
                             <div class="card-body">
                                 <form action={% url 'users:login' %} method="POST">
 											{% csrf_token %}
-											{{ form.as_p }}
+											{% for item in form %}
+												<div class="form-group">
+                                       <label class="small mb-1" for={{ item.id_for_label}}>{{item.label}}</label>
+													{{item}}
+                                    </div>
+											{% endfor %}										
                                     <div class="form-group d-flex align-items-center justify-content-between mt-4 mb-0">
                                         <a class="small" href="#">Забыли пароль?</a>
                                         <input class="btn btn-primary" type="submit" value="Авторизоваться">
