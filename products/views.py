@@ -1,16 +1,32 @@
 from django.shortcuts import render, HttpResponseRedirect
 from products.models import Category, Product, Basket
+from django.contrib.auth.decorators import login_required
+from django.core.paginator import Paginator
 
 
 def index(request):
     return render(request, "products/index.html")
 
 
-def products(request):
-    context = {"products": Product.objects.all(), "categories": Category.objects.all()}
+def products(request, category_id=None, page_number=1):
+    products = (
+        Product.objects.filter(category__id=category_id)
+        if category_id
+        else Product.objects.all()
+    )
+    per_page = 3
+    paginator = Paginator(products, per_page)
+    products_paginator = paginator.page(page_number)
+    context = {
+        "products": products_paginator,
+        "categories": Category.objects.filter(
+            name__in=Product.objects.values("category__name")
+        ),
+    }
     return render(request, "products/products.html", context)
 
 
+@login_required
 def basket_add(request, product_id):
     product_add = Product.objects.get(id=product_id)
     basket_user = Basket.objects.filter(user=request.user, product=product_add)
@@ -23,6 +39,7 @@ def basket_add(request, product_id):
     return HttpResponseRedirect(request.META["HTTP_REFERER"])
 
 
+@login_required
 def basket_delete(request, basket_id):
     product_delete = Basket.objects.get(user=request.user, id=basket_id)
     product_delete.delete()

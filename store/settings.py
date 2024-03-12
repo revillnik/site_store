@@ -39,6 +39,7 @@ INSTALLED_APPS = [
     "django.contrib.staticfiles",
     "products.apps.ProductsConfig",
     "users.apps.UsersConfig",
+    "django_extensions",
 ]
 
 MIDDLEWARE = [
@@ -128,3 +129,4 @@ DEFAULT_AUTO_FIELD = "django.db.models.BigAutoField"
 
 # user
 AUTH_USER_MODEL = "users.User"
+LOGIN_URL = "users:login"
