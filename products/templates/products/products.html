@@ -84,14 +84,18 @@
                         <a class="page-link" href= {% if products.has_previous %} "{% url "products:paginator" products.previous_page_number %}" {% endif %} tabindex="-1" aria-disabled="True">Previous</a>
                     </li>
 						  {% for page in products.paginator.page_range %}
-						  <li class="page-item"><a class="page-link" href="{% url "products:paginator" page %}">{{page}}</a></li>
+						  {% if page == products.number %}
+						  <li class="page-item"><span class="page-link" style="color: black" >{{page}}</span></li>
+						  {% else %}
+						  <li class="page-item"><a class="page-link"  href= "{% url "products:paginator" page %}">{{page}}</a></li>
+						  {% endif %}
 						  {% endfor %}
                     <li class="page-item {% if not products.has_next %} disabled {% endif %}">
                         <a class="page-link" href={% if products.has_next %} "{% url "products:paginator" products.next_page_number %}" {% endif %}>Next</a>
                     </li>
                 </ul>
             </nav>
-
+						  
         </div>
 
     </div>
@@ -103,7 +107,7 @@
 <!-- Footer -->
 <footer class="py-5 bg-dark">
     <div class="container">
-        <p class="m-0 text-center text-white">Copyright &copy; Store 2022</p>
+        <p class="m-0 text-center text-white">Copyright &copy; Store 2022 </p>
     </div>
     <!-- /.container -->
 </footer>

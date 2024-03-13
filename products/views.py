@@ -1,11 +1,21 @@
+from typing import Any
 from django.shortcuts import render, HttpResponseRedirect
 from products.models import Category, Product, Basket
 from django.contrib.auth.decorators import login_required
 from django.core.paginator import Paginator
+from django.views.generic import TemplateView
 
 
-def index(request):
-    return render(request, "products/index.html")
+class IndexView(TemplateView):
+    template_name = "products/index.html"
+    def get_context_data(self, **kwargs):
+       context = super().get_context_data(**kwargs)
+       context["title"] = "Store"
+       return context
+    
+
+# def index(request):
+# 	return render(request, "products/index.html")
 
 
 def products(request, category_id=None, page_number=1):
