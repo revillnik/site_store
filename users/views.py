@@ -6,21 +6,27 @@ from products.models import Basket
 from django.contrib.auth.decorators import login_required
 from django.views.generic import TemplateView, ListView, CreateView, UpdateView
 from users.models import User
+from django.contrib.auth.views import LoginView
 
-def login(request):
-    if request.method == "POST":
-        form = UserLoginForm(data=request.POST)
-        if form.is_valid():
-            username = request.POST["username"]
-            password = request.POST["password"]
-            user = auth.authenticate(username=username, password=password)
-            if user:
-                auth.login(request, user)
-                return redirect(reverse("index"))
-    else:
-        form = UserLoginForm()
-    context = {"form": form}
-    return render(request, "users/login.html", context)
+class UserLoginView(LoginView):
+    model = User
+    form_class = UserLoginForm
+    template_name = "users/login.html"
+
+# def login(request):
+#     if request.method == "POST":
+#         form = UserLoginForm(data=request.POST)
+#         if form.is_valid():
+#             username = request.POST["username"]
+#             password = request.POST["password"]
+#             user = auth.authenticate(username=username, password=password)
+#             if user:
+#                 auth.login(request, user)
+#                 return redirect(reverse("index"))
+#     else:
+#         form = UserLoginForm()
+#     context = {"form": form}
+#     return render(request, "users/login.html", context)
 
 class RegisterView(CreateView):
     model = User
@@ -55,7 +61,7 @@ class ProfileView(UpdateView):
         context["basket"] = Basket.objects.filter(user=self.request.user)
         return context
     def get_success_url(self):
-       return reverse_lazy("users:profile", args=(self.request.user.id,))
+        return reverse_lazy("users:profile", args=(self.request.user.id,))
 
 # @login_required
 # def profile(request):
