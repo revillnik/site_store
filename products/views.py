@@ -5,29 +5,28 @@ from products.models import Category, Product, Basket
 from django.contrib.auth.decorators import login_required
 from django.core.paginator import Paginator
 from django.views.generic import TemplateView, ListView
+from common.views import TitleMixin
 
 
-class IndexView(TemplateView):
+class IndexView(TitleMixin, TemplateView):
     template_name = "products/index.html"
+    title = "Store"
 
-    def get_context_data(self, **kwargs):
-        context = super().get_context_data(**kwargs)
-        context["title"] = "Store"
-        return context
+
 
 
 # def index(request):
 # 	return render(request, "products/index.html")
 
 
-class PorductsListView(ListView):
+class PorductsListView(TitleMixin, ListView):
     model = Product
     template_name = "products/products.html"
     paginate_by = 3
+    title = "Products"
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
-        context["title"] = "Products"
         context["categories"] = Category.objects.filter(
             name__in=Product.objects.values("category__name")
         )

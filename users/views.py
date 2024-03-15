@@ -7,11 +7,15 @@ from django.contrib.auth.decorators import login_required
 from django.views.generic import TemplateView, ListView, CreateView, UpdateView
 from users.models import User
 from django.contrib.auth.views import LoginView
+from common.views import TitleMixin
 
-class UserLoginView(LoginView):
+
+class UserLoginView(TitleMixin, LoginView):
     model = User
     form_class = UserLoginForm
     template_name = "users/login.html"
+    title = 'Login'
+
 
 # def login(request):
 #     if request.method == "POST":
@@ -28,15 +32,13 @@ class UserLoginView(LoginView):
 #     context = {"form": form}
 #     return render(request, "users/login.html", context)
 
-class RegisterView(CreateView):
+
+class RegisterView(TitleMixin, CreateView):
     model = User
     form_class = UserRegistrationForm
     template_name = "users/register.html"
     success_url = reverse_lazy("users:login")
-    def get_context_data(self, **kwargs):
-        context = super().get_context_data(**kwargs)
-        context["title"] = "Registration"
-        return context
+    title = 'Registration'
 
 
 # def register(request):
@@ -51,17 +53,19 @@ class RegisterView(CreateView):
 #     context = {"form": form}
 #     return render(request, "users/register.html", context)
 
-class ProfileView(UpdateView):
+
+class ProfileView(TitleMixin, UpdateView):
     model = User
     form_class = UserProfileForm
     template_name = "users/profile.html"
+    title = 'Profile'
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
-        context["title"] = "Profile"
         context["basket"] = Basket.objects.filter(user=self.request.user)
         return context
     def get_success_url(self):
         return reverse_lazy("users:profile", args=(self.request.user.id,))
+
 
 # @login_required
 # def profile(request):
@@ -84,6 +88,6 @@ class ProfileView(UpdateView):
 #     return render(request, "users/profile.html", context)
 
 
-def logout(request):
-    auth.logout(request)
-    return redirect(reverse("index"))
+# def logout(request):
+#     auth.logout(request)
+#     return redirect(reverse("index"))

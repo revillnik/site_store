@@ -1,5 +1,5 @@
 from django.urls import path, include
-from users.views import UserLoginView, RegisterView, ProfileView, logout
+from users.views import UserLoginView, RegisterView, ProfileView
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth.views import LogoutView
 
