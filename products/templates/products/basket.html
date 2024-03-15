@@ -13,8 +13,9 @@
 									<li class="list-group-item bg-light">
 											<div class="row text-center">
 												<div class="col-lg-4">
-													<input name="basketID" type="number" class="form-control"
-																value="{{item.quantity}}" min="0">
+													<div name="basketID" type="number" class="form-control"
+																value="{{item.quantity}}" min="0">{{item.quantity}} </div> 
+											<!-- тут был input список, но т.к. сумма не коррелирует с изменением количества товаров через него, то пришлось заменить --> 
 												</div>
 												<div class="col-lg-4">{{item.sum}} руб.</div>
 												<div class="col-lg-4">
