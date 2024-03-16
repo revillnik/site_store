@@ -3,16 +3,38 @@ from django.contrib.auth.forms import (
     UserCreationForm,
     UserChangeForm,
 )
-from users.models import User
+from users.models import User, EmailVerification
 from django import forms
+from datetime import timedelta
+import uuid
+from django.utils.timezone import now
 
 
 class UserProfileForm(UserChangeForm):
-    username = forms.CharField(widget=forms.TextInput(attrs={"class": "form-control py-4", "readonly": True}),)
-    first_name = forms.CharField(widget=forms.TextInput(attrs={"class": "form-control py-4",}),)
-    last_name = forms.CharField( widget=forms.TextInput(attrs={"class": "form-control py-4",}),)
-    email = forms.EmailField(widget=forms.TextInput(attrs={ "class": "form-control py-4", "readonly": True}),)
-    image = forms.ImageField(widget=forms.FileInput(attrs={"class": "custom-file-input"}), required=False)
+    username = forms.CharField(
+        widget=forms.TextInput(attrs={"class": "form-control py-4", "readonly": True}),
+    )
+    first_name = forms.CharField(
+        widget=forms.TextInput(
+            attrs={
+                "class": "form-control py-4",
+            }
+        ),
+    )
+    last_name = forms.CharField(
+        widget=forms.TextInput(
+            attrs={
+                "class": "form-control py-4",
+            }
+        ),
+    )
+    email = forms.EmailField(
+        widget=forms.TextInput(attrs={"class": "form-control py-4", "readonly": True}),
+    )
+    image = forms.ImageField(
+        widget=forms.FileInput(attrs={"class": "custom-file-input"}), required=False
+    )
+
     class Meta:
         model = User
         fields = [
@@ -90,6 +112,15 @@ class UserRegistrationForm(UserCreationForm):
             "password1",
             "password2",
         ]
+
+    def save(self, commit=True):
+        user = super(UserRegistrationForm, self).save(commit=True)
+        expiratoin = now() + timedelta(hours=48)
+        record = EmailVerification.objects.create(
+            code=uuid.uuid4(), user=user, expiratoin=expiratoin
+        )
+        record.send_verification_email()
+        return user
 
 
 class UserLoginForm(AuthenticationForm):
