@@ -1,11 +1,9 @@
-from typing import Any
-from django.db.models.query import QuerySet
-from django.shortcuts import render, HttpResponseRedirect
-from products.models import Category, Product, Basket
 from django.contrib.auth.decorators import login_required
-from django.core.paginator import Paginator
-from django.views.generic import TemplateView, ListView
+from django.shortcuts import HttpResponseRedirect
+from django.views.generic import ListView, TemplateView
+
 from common.views import TitleMixin
+from products.models import Basket, Category, Product
 
 
 class IndexView(TitleMixin, TemplateView):

@@ -1,4 +1,5 @@
 from django.db import models
+
 from users.models import User
 
 
@@ -13,6 +14,7 @@ class BasketQuerySet(models.QuerySet):
 class Category(models.Model):
     name = models.CharField(max_length=128, unique=True)
     description = models.TextField(null=True, blank=True)
+    
     class Meta:
         verbose_name = "категория"
         verbose_name_plural = "категории"
@@ -28,10 +30,10 @@ class Product(models.Model):
     quantity = models.PositiveIntegerField(default=0)
     image = models.ImageField(upload_to="products_images")
     category = models.ForeignKey("Category", on_delete=models.PROTECT)
+    
     class Meta:
         verbose_name = "продукт"
         verbose_name_plural = "продукты"
-
 
     def __str__(self):
         return self.name
@@ -43,6 +45,7 @@ class Basket(models.Model):
     quantity = models.PositiveSmallIntegerField(default=0)
     time_stamp = models.DateTimeField(auto_now_add=True)
     objects = BasketQuerySet.as_manager()
+    
     class Meta:
         verbose_name = "корзина"
         verbose_name_plural = "корзина"
