@@ -2,7 +2,7 @@ from django.db import models
 from django.contrib.auth.models import AbstractUser
 from django.core.mail import send_mail
 from django.urls import reverse, reverse_lazy
-
+from django.conf import settings
 
 class User(AbstractUser):
     image = models.ImageField(upload_to="users_images", null=True, blank=True)
@@ -22,8 +22,8 @@ class EmailVerification(models.Model):
         link = reverse("users:EmailVerification", args=(self.user.email, self.code))
         all_url_link = f"http://127.0.0.1:8000/{link}"
         send_mail(
-            subject="Verification email",
-            message=all_url_link,
-            from_email="from revillnik@mail.ru",
+            subject="Подтверждение электронной почты",
+            message=f'перейдите по этой ссылке, чтобы подтвердить вашу электронную почту: {all_url_link}',
+            from_email=settings.EMAIL_HOST_USER,
             recipient_list=[self.user.email],
         )

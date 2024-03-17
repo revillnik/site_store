@@ -8,6 +8,7 @@ from django import forms
 from datetime import timedelta
 import uuid
 from django.utils.timezone import now
+from django.contrib.auth import get_user_model
 
 
 class UserProfileForm(UserChangeForm):
@@ -112,6 +113,12 @@ class UserRegistrationForm(UserCreationForm):
             "password1",
             "password2",
         ]
+
+    def clean_email(self):
+        email = self.cleaned_data["email"]
+        if get_user_model().objects.filter(email=email).exists():
+            raise forms.ValidationError("Такой E-mail уже существует!")
+        return email
 
     def save(self, commit=True):
         user = super(UserRegistrationForm, self).save(commit=True)
