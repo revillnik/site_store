@@ -2,7 +2,6 @@ from django.test import TestCase
 from django.urls import reverse
 from products.models import Product, Category, Basket
 from users.models import User
-import datetime
 
 class IndexViewTestCase(TestCase):
     def test_view(self):
