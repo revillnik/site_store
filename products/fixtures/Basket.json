@@ -1,0 +1,5 @@
+[
+	{ "model": "products.basket", "pk": 1, "fields": { "user": 1, "product": 1, "quantity": 1, "time_stamp": "2024-03-20T18:59:45.734Z" } },
+	{ "model": "products.basket", "pk": 2, "fields": { "user": 1, "product": 3, "quantity": 1, "time_stamp": "2024-03-20T18:59:47.047Z" } },
+	{ "model": "products.basket", "pk": 3, "fields": { "user": 1, "product": 2, "quantity": 1, "time_stamp": "2024-03-20T18:59:48.865Z" } }
+]

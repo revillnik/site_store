@@ -45,7 +45,7 @@ class Basket(models.Model):
     quantity = models.PositiveSmallIntegerField(default=0)
     time_stamp = models.DateTimeField(auto_now_add=True)
     objects = BasketQuerySet.as_manager()
-    
+
     class Meta:
         verbose_name = "корзина"
         verbose_name_plural = "корзина"

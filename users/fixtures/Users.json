@@ -1,0 +1,42 @@
+[
+	{
+		"model": "users.user",
+		"pk": 1,
+		"fields": {
+			"password": "pbkdf2_sha256$600000$PtPKFrP8Yxpx6aG0XoFQ9n$c5GHB9dyNI8zf6m3m2gvubCmr7xAQQAXD2FAo/6MYbk=",
+			"last_login": "2024-03-20T18:59:34.759Z",
+			"is_superuser": true,
+			"username": "root",
+			"first_name": "═шъшЄр",
+			"last_name": "╚трэют",
+			"email": "revillnik@mail.ru",
+			"is_staff": true,
+			"is_active": true,
+			"date_joined": "2024-03-18T16:34:11.396Z",
+			"image": "",
+			"is_verified_email": false,
+			"groups": [],
+			"user_permissions": []
+		}
+	},
+	{
+		"model": "users.user",
+		"pk": 2,
+		"fields": {
+			"password": "!ncsJi5Yr6P0sjitHvkMOHBGiQT5ceW6urOviV2K1",
+			"last_login": "2024-03-18T17:50:49.243Z",
+			"is_superuser": false,
+			"username": "revillnik",
+			"first_name": "Nikita",
+			"last_name": "Ivanov",
+			"email": "",
+			"is_staff": false,
+			"is_active": true,
+			"date_joined": "2024-03-18T17:50:49.174Z",
+			"image": "",
+			"is_verified_email": false,
+			"groups": [],
+			"user_permissions": []
+		}
+	}
+]
