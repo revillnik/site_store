@@ -45,6 +45,7 @@ INSTALLED_APPS = [
     "products.apps.ProductsConfig",
     "users.apps.UsersConfig",
     "django_extensions",
+    "debug_toolbar",
 ]
 
 MIDDLEWARE = [
@@ -56,6 +57,7 @@ MIDDLEWARE = [
     "django.contrib.messages.middleware.MessageMiddleware",
     "django.middleware.clickjacking.XFrameOptionsMiddleware",
     "allauth.account.middleware.AccountMiddleware",
+    "debug_toolbar.middleware.DebugToolbarMiddleware",
 ]
 
 ROOT_URLCONF = "store.urls"
@@ -177,3 +179,5 @@ SOCIALACCOUNT_PROVIDERS = {
         ],
     }
 }
+
+INTERNAL_IPS = ["127.0.0.1", "localhost"]
