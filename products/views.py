@@ -11,8 +11,6 @@ class IndexView(TitleMixin, TemplateView):
     title = "Store"
 
 
-
-
 # def index(request):
 # 	return render(request, "products/index.html")
 
@@ -25,6 +23,13 @@ class PorductsListView(TitleMixin, ListView):
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
+        #  работа с кешем при помощи redis (решил сделать через коммент, т.к. работаю на винде, запарно устанавливать редис)
+        # categories = cache.get("categories")
+        # if not categories:
+        #    context["categories"] = Category.objects.filter( name__in=Product.objects.values("category__name"))
+        #    categories = cache.set("categories", context["categories"], 30)
+        # else:
+        #    context["categories"] = categories
         context["categories"] = Category.objects.filter(
             name__in=Product.objects.values("category__name")
         )
