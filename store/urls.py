@@ -29,6 +29,7 @@ urlpatterns = [
     path("products/", include("products.urls", namespace="products")),
     path("users/", include("users.urls", namespace="users")),
     path("orders/", include("orders.urls", namespace="orders")),
+    path("api/", include("api.urls", namespace="api")),
 ]
 
 if settings.DEBUG:

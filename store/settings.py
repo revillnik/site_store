@@ -46,8 +46,10 @@ INSTALLED_APPS = [
     "products.apps.ProductsConfig",
     "users.apps.UsersConfig",
     "orders.apps.OrdersConfig",
+    "api.apps.ApiConfig",
     "django_extensions",
     "debug_toolbar",
+    "rest_framework",
 ]
 
 MIDDLEWARE = [
@@ -183,3 +185,10 @@ SOCIALACCOUNT_PROVIDERS = {
 }
 
 INTERNAL_IPS = ["127.0.0.1", "localhost"]
+
+# django-rest framework
+
+REST_FRAMEWORK = {
+    "DEFAULT_PAGINATION_CLASS": "rest_framework.pagination.LimitOffsetPagination",
+    "PAGE_SIZE": 3,
+}
